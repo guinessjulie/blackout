@@ -868,5 +868,90 @@ def get_first_python1(users) :
 # print(get_first_python(list1+list3), "Victoria, Puerto Rico")
 # print(get_first_python(list3+list1), "Sou, Japan")
 
+# decode returned list of ls -l of linux
+def linux_type(file_attribute):
+    filetype={
+        '-':'file',
+        'D':'door',
+        's':'socket',
+        'l':'symlink',
+        'p': 'pipe',
+        'b':'block_file',
+        'c': 'character_set',
+        'd': 'directory'
+    }
+    return filetype[file_attribute[0]]
+#
+#print(linux_type("-rwxrwxrwx"),"file")
+#print(linux_type("Drwxr-xr-x"),"door")
+#print(linux_type("lrwxrw-rw-"),"symlink")
+#print(linux_type("srwxrwxrwx"),"socket")
+#
+#finished at 2:16
 
+#rule :  8 - 20 characters
+# t least one character from each category): 
+# uppercase letters, lowercase letters, digits, 
+# and the special characters !@#$%^&*?
+#gaveup source
+# best solution
+import re;
+def check_password(s):
+    if re.search('^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*?[!@#$%^&*?])[a-zA-Z\d!@#$%^&*?]{8,20}$', s) :
+        return 'valid'
+    else:
+        return 'not valid'
 
+# another one
+def check_password(s):
+    m = re.match(r'(?=.{8,20}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*?])(?=^[a-zA-Z\d!@#$%^&*?]*$)', s)
+    return 'valid' if m else 'not valid'
+
+# maybe this is more understandable
+import re
+
+PATTERN = re.compile(
+'^'                   # begin string
+'(?=.*?[A-Z])'        # at least one uppercase letter
+'(?=.*?[a-z])'        # at least one lowercase letter
+'(?=.*?\d)'           # at least one digit
+'(?=.*?[!@#$%^&*?])'  # at least one special character
+'[A-Za-z\d!@#$%^&*?]' # only the given characters
+'{8,20}'              # between 8 and 20 characters long
+'$'                   # end string
+)
+
+def check_password(s):
+    return "valid" if PATTERN.match(s) else "not valid"
+
+def check_password(string):
+    reduced = sub("[a-z]", "a", sub("[A-Z]", "A", sub("[0-9]", "0", sub("[!@#$%^&*?]", "!", string))))
+    return "valid" if 8 <= len(string) <= 20 and set(reduced) == set("aA0!") else "not valid"
+
+#another one
+def check_password(s):
+    c1 = 8 <= len(s) <=20
+    c2 = any([i.isupper() for i in s])
+    c3 = any([i.islower() for i in s])
+    c4 = any([i.isdigit() for i in s])
+    c5 = any([i for i in s if i in '!@#$%^&*?'])
+    c6 = not any([i for i in s if i not in '!@#$%^&*?' and not i.isupper() and not i.islower() and not i.isdigit()])
+    return 'valid' if c1 and c2 and c3 and c4 and c5 and c6 else 'not valid'
+
+#this looks easier
+import re
+def check_password(s):
+    if len(s) > 20 or len(s) < 8: return "not valid"
+    a1 = bool(re.search(r'[A-Z]', s))
+    a2 = bool(re.search(r'[a-z]', s))
+    a3 = bool(re.search(r'\d', s))
+    a4 = bool(re.search(r'[!@#$%^&*?]', s))
+    a5 = bool(re.search(r'^[A-Za-z!@#$%^&*?\d]*$', s))
+    return "valid" if a1*a2*a3*a4*a5 else "not valid"
+
+#print(check_password(""), "not valid")
+#print(check_password("password"), "not valid")
+#print(check_password("P1@p"), "not valid")
+print(check_password("P1@pP1@p"), "valid")
+print(check_password("P1@pP1@pP1@pP1@pP1@pP1@p"), "not valid")
+print(check_password("Paaaaaa222!!!"), "valid")
