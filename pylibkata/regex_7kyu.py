@@ -658,19 +658,215 @@ def validate_number(string):
 
 
 #regex is the weakest area
+## do it again later
 import re
 yes = "In with a chance"
 no = "Plenty more fish in the sea"
 def validate_number(string):
   return yes if re.match(r'^(\+44|0)7[\d]{9}$',re.sub('-','',string)) else no\
-      
-print(validate_number("07454876120"), "In with a chance")
-print(validate_number("0754876120"), "Plenty more fish in the sea")
-print(validate_number("0745--487-61-20"), "In with a chance")
-print(validate_number("+447535514555"), "In with a chance")
-print(validate_number("-07599-51-4555"), "In with a chance")
-print(validate_number("075335440555"), "Plenty more fish in the sea")
-print(validate_number("+337535512555"), "Plenty more fish in the sea")
-print(validate_number("00535514555"), "Plenty more fish in the sea")
-print(validate_number("+447+4435512555"), "Plenty more fish in the sea", "Not a Briish prefix")
-print(validate_number("+44"), "Plenty more fish in the sea", "Not a Briish prefix")
+
+#print(validate_number("07454876120"), "In with a chance")
+#print(validate_number("0754876120"), "Plenty more fish in the sea")
+#print(validate_number("0745--487-61-20"), "In with a chance")
+#print(validate_number("+447535514555"), "In with a chance")
+#print(validate_number("-07599-51-4555"), "In with a chance")
+#print(validate_number("075335440555"), "Plenty more fish in the sea")
+#print(validate_number("+337535512555"), "Plenty more fish in the sea")
+#print(validate_number("00535514555"), "Plenty more fish in the sea")
+#print(validate_number("+447+4435512555"), "Plenty more fish in the sea", "Not a Briish prefix")
+#print(validate_number("+44"), "Plenty more fish in the sea", "Not a Briish prefix")
+
+
+#start at 9:10
+# add up each date, month, year and sum respectively until <10
+def life_path_number(birth):
+    y,m, d = birth.split('-')
+    while (int(y) > 10):
+        y = sum(int(x) for x in (list(str(y))))
+    while(int(m)>10):
+        m = sum(int(x) for x in (list(str(m))))
+    while(int(d)>10):
+        d = sum(int(x) for x in (list(str(d))))
+    s = int(y) + int(m) +int(d)
+    while(s >= 10) :
+        s = sum(int(x) for x in (list(str(s))))
+    return s    
+#finished at 9:37    
+# clever way
+## string.replace()
+def life_path_number(date):
+    return int(date.replace('-', '')) % 9 or 9
+
+#print(life_path_number("1955-10-28"), 4)
+#print(life_path_number("1971-06-28"), 7)
+
+# start at 09:51
+def validate_time(time):
+    return bool(re.match(r'(1\d|2[0-3]|0?\d):[0-5][0-5]', time))
+# finished at 10:05
+
+    #your code here
+#print(validate_time('1:00'), True)
+#print(validate_time('1:00'), True)
+# print(validate_time('13:1'), False)
+# print(validate_time('12:60'), False)
+# print(validate_time('12: 60'), False)
+# print(validate_time('24:00'), False)
+# print(validate_time('00:00'), True)
+# print(validate_time('24o:00'), False)
+# print(validate_time('24:000'), False)
+# print(validate_time(''), False)
+# print(validate_time('09:00'), True)
+# print(validate_time('2400'), False)
+# print(validate_time('foo12:00bar'), False)
+# print(validate_time('010:00'), False)
+# print(validate_time('1;00'), False)
+
+# time started 10:16
+import re
+def ipValidator2(ip):
+    print([ip])
+    valid = True
+    if len(ip.split('.') ) != 4  or ' ' in ip: 
+        return False
+    for x in ip.split('.') :
+        try : 
+            if int(x) > 255:
+                valid = False
+                return valid
+        except : 
+            return 'False'
+    return valid
+#10:44
+# regex
+
+def ipValidator(ip):
+    if (re.match(r'^(\d{1,3}\.){3}(\d{1,3})$', ip)) :
+        for each in ip.split('.') : 
+             if int(each) > 255 : 
+                 return False
+        return True
+    else:
+        return False
+  
+# print(ipValidator('123.456.789.0'))
+# print(ipValidator('127.0.0.1') == True,'\"127.0.0.1\" is valid IP')
+# print(ipValidator('123.456.789.0') == False,'\"123.456.789.0\" is invalid IP')
+# print(ipValidator('12.b.3.a'))
+# print(ipValidator('12.34.56'))
+# print(ipValidator(('')))
+# print(ipValidator(' 1.2.3.4') )#공백처리
+# print(ipValidator('1.2.3.4 '))
+
+#given index i'th number 보다 크면서 제일 작은 least larger  번호 구하기
+# tag remover
+
+#tag remover
+from re import sub
+reg2 = r'</?[\w\s\#\'\"= \.]+\/?>'
+
+# clever solution
+reg = r'<[^>]*>' # <> 사이에 >제외한 모든 것 매치
+reg = r'<.*?>'
+#12:08
+#print(sub(reg, "", "<div>test</div>"), "test");
+#print(sub(reg, "", "<a href='#'>go to <b>start</b> page</a>"), "go to start page")
+#print(sub(reg, "", "aaabbb<i>sss</i>zzz<hr/>vvv<hr /><br/>"), "aaabbbssszzzvvv")
+#print(sub(reg, "", "<img src='home.jpg'/>foto description"), "foto description")
+#print(sub(reg, "", "<p>first section<b>bold text</b>second part    </p>"), "first sectionbold textsecond part    ")
+#print(sub(reg, "", "<div>text\ntext <span>2</span></div>"),"text\ntext 2")
+#print(sub(reg, "", "<html lang = 'pl' ><body>content of body ... </body> ... </html>"), "content of body ...  ... ")
+#print(sub(reg, "", "<div><span></span></div>"),"")
+#print(sub(reg, "", ""),"")
+#print(sub(reg, "", "a"),"a")
+# 
+
+# # start 12:11
+def validate_time(time): #this is better
+    return bool(re.match(r'(2[0-3]|[01]?\d):[0-5]\d$', time))
+# def validate_time(time):
+#     return bool(re.match(r'(([0-1]\d|2[0-3])|\d)(:[0-5]\d)', time))
+# print(validate_time('1:00'), True)
+# print(validate_time('1:00'), True)
+# print(validate_time('13:1'), False)
+# print(validate_time('12:60'), False)
+# print(validate_time('12: 60'), False)
+# print(validate_time('24:00'), False)
+# print(validate_time('00:00'), True)
+# print(validate_time('24o:00'), False)
+# print(validate_time('24:000'), False)
+# print(validate_time(''), False)
+# print(validate_time('09:00'), True)
+# print(validate_time('2400'), False)
+# print(validate_time('foo12:00bar'), False)
+# print(validate_time('010:00'), False)
+# print(validate_time('1;00'), False)
+
+# accept only alphabet + space
+# my digging is not worth record it
+# is this best solution
+def nothing_special(s):
+    try:
+        return re.sub('[^a-z0-9\s]', '', s, flags=re.IGNORECASE)
+    except:
+        return 'Not a string!'
+#print(nothing_special("Hello World!"), "Hello World")
+#print(nothing_special("%^Take le$ft ##quad%r&a&nt"), "Take left quadrant")
+#print(nothing_special("M$$$$$$$y ally!!!!!"), "My ally")
+#print(nothing_special(25), "Not a string!")
+
+
+# get first python developer signed up
+# < firstName here >, < country here > of the first Python developer who has signed up
+def get_first_python3(users):
+    user = ''
+    for d in users:
+        if d['language'] == 'Python':
+            user += d["first_name"] + ", "+ d["country"]
+            break
+    if user == '' : 
+        return "There will be no Python developers"
+    return user
+
+# look at this beautiful solution I feel frustrating comparing mine
+def get_first_python2(users):
+    return next(('{}, {}'.format(d['first_name'],d['country']) for d in users if d['language'] == 'Python'),'There will be no Python developers')
+
+## format 
+def get_first_python1(users) :
+    for d in users :
+        if d['language'] == 'Python':
+            return '{}, {}'.format(d['first_name'], d['country'])
+
+##  merge for with if
+## next( (iter for in if ), 'default') 
+# def get_first_python(users) :
+#     if users == '':
+#         return 'There will be no Python developers'
+#     return next(('{}, {}'.format(d['first_name'], d['country']) for d in users if d['language'] == 'Python'), 'There will be no Python developers')
+# list1 = [
+#   { "first_name": "Mark", "last_name": "G.", "country": "Scotland", "continent": "Europe", "age": 22, "language": "JavaScript" },
+#   { "first_name": "Victoria", "last_name": "T.", "country": "Puerto Rico", "continent": "Americas", "age": 30, "language": "Python" },
+#   { "first_name": "Emma", "last_name": "B.", "country": "Norway", "continent": "Europe", "age": 19, "language": "Clojure" }
+# ]
+
+# list2 = [
+#   { "first_name": "Kseniya", "last_name": "T.", "country": "Belarus", "continent": "Europe", "age": 29, "language": "JavaScript" },
+#   { "first_name": "Amar", "last_name": "V.", "country": "Bosnia and Herzegovina", "continent": "Europe", "age": 32, "language": "Ruby" }
+# ]
+
+# list3 = [
+#   { "first_name": "Sofia", "last_name": "P.", "country": "Italy", "continent": "Europe", "age": 41, "language": "Clojure" },
+#   { "first_name": "Jayden", "last_name": "P.", "country": "Jamaica", "continent": "Americas", "age": 42, "language": "JavaScript" },
+#   { "first_name": "Sou", "last_name": "B.", "country": "Japan", "continent": "Asia", "age": 43, "language": "Python" },
+#   { "first_name": "Rimas", "last_name": "C.", "country": "Jordan", "continent": "Asia", "age": 44, "language": "Java" }
+# ]
+
+# print(get_first_python(list1), "Victoria, Puerto Rico")
+# print(get_first_python(list2), "There will be no Python developers")
+# print(get_first_python(list3), "Sou, Japan")
+# print(get_first_python(list1+list3), "Victoria, Puerto Rico")
+# print(get_first_python(list3+list1), "Sou, Japan")
+
+
+
