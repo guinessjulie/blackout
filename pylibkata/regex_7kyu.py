@@ -952,6 +952,45 @@ def check_password(s):
 #print(check_password(""), "not valid")
 #print(check_password("password"), "not valid")
 #print(check_password("P1@p"), "not valid")
-print(check_password("P1@pP1@p"), "valid")
-print(check_password("P1@pP1@pP1@pP1@pP1@pP1@p"), "not valid")
-print(check_password("Paaaaaa222!!!"), "valid")
+#print(check_password("P1@pP1@p"), "valid")
+#print(check_password("P1@pP1@pP1@pP1@pP1@pP1@p"), "not valid")
+#print(check_password("Paaaaaa222!!!"), "valid")
+
+# 7:40
+def least_larger2(a, i):
+    if len([k for k in a if k > a[i]]) >= 1:
+        if [k for k in a if a[i]<k] ==[] :
+            return -1
+        return a.index(min([k for k in a if a[i] < k] ))
+    else:
+        return -1
+def least_larger(a, i):
+    larger =[ k for k in a if k> a[i]]
+    return a.index(min(larger)) if larger else -1
+
+# print(least_larger( [4, 1, 3, 5, 6], 0), 3 )
+# print(least_larger( [4, 1, 3, 5, 6], 4), -1 )
+# print(least_larger([0,0], 1),-1)
+# print(least_larger([1, 2, 3, 4, 5, 0], 3),4)
+#8:01
+
+#8:19
+#list in between duplicate element 
+def duplicate_sandwich(arr):
+    dup = {}
+    sandwitch = []
+    found = 0 
+    for i, k in enumerate(arr) :
+        print(i, k)
+        if arr.count(k) == 2 :
+            found +=1
+            print('dup :', i, k)
+        if(found > 1 and found < 2 ) :
+            sandwitch.append(k)
+    return sandwitch
+
+print(duplicate_sandwich([0, 1, 2, 3, 4, 5, 6, 1, 7, 8]), [2, 3, 4, 5, 6])
+print(duplicate_sandwich(['None', 'Hello', 'Example', 'hello', 'None', 'Extra']), ['Hello', 'Example', 'hello'])
+print(duplicate_sandwich([0, 0]), [])
+print(duplicate_sandwich([True, False, True]), [False])
+print(duplicate_sandwich(['e', 'x', 'a', 'm', 'p', 'l', 'e']), ['x', 'a', 'm', 'p', 'l'])
